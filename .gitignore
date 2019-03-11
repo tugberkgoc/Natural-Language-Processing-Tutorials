@@ -127,3 +127,8 @@ dmypy.json
 
 # .idea
 /.idea
+/.idea/*
+/.idea/
+.idea/*
+.idea/
+.idea
