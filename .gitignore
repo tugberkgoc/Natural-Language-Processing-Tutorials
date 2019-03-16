@@ -132,3 +132,12 @@ dmypy.json
 .idea/*
 .idea/
 .idea
+
+# .vscode
+.vscode
+
+# package-lock
+package-lock.*
+
+# node_modules
+node_modules/

@@ -1,0 +1,26 @@
+{
+  "name": "natural-language-processing",
+  "version": "1.0.0",
+  "description": "No Description",
+  "main": "phase01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tugberkgoc/Natural-Language-Processing-Tutorials.git"
+  },
+  "author": "tugberkgoc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tugberkgoc/Natural-Language-Processing-Tutorials/issues"
+  },
+  "homepage": "https://github.com/tugberkgoc/Natural-Language-Processing-Tutorials#readme",
+  "dependencies": {
+    "d3node-linechart": "^0.1.2",
+    "d3node-piechart": "0.0.10",
+    "natural": "^0.6.3",
+    "d3-node": "latest",
+    "d3node-output": "latest"
+  }
+}
