@@ -59,8 +59,8 @@ print('=========================================================================
 
 
 def most_freq_bi_gram(freq_bi_gram, number_of_bi_gram):
-    text = display_n_grams(pre_process(file), 2)
-    bi_gram = FreqDist(text).most_common(len(list(text)))
+    bi_gram = FreqDist(display_n_grams(pre_process(file), 2))\
+        .most_common(len(list(display_n_grams(pre_process(file), 2))))
     result = list()
     temp = 0
 
@@ -142,4 +142,7 @@ print('Most common tags.')
 print(num_of_tags(tag_given_text(file)))
 print('==========================================================================================================')
 
-# def getSpecifiedTag():
+# def getSpecifiedTag(tagged_text,tag):
+#
+#
+# getSpecifiedTag(tag_given_text(file), 'NN')
