@@ -26,11 +26,10 @@ def pre_process(text):
     return filtered_sentence
 
 
-print('==========================================================================================================')
 print('=============================================PART 01 =====================================================')
 print('Tokenize version of the text that does not contain neither any stop words nor any punctuations')
-print(*pre_process(file), sep='\n')
 print('==========================================================================================================')
+print(*pre_process(file), sep='\n')
 
 
 def most_frequent(tokenize_text, how_many):
@@ -40,26 +39,24 @@ def most_frequent(tokenize_text, how_many):
     return FreqDist(stem_words).most_common(how_many)
 
 
-print('==========================================================================================================')
 print('=============================================PART 02 =====================================================')
 print('Number of the occurrences of the frequent words')
-print(most_frequent(pre_process(file), 10))
 print('==========================================================================================================')
+print(most_frequent(pre_process(file), 10))
 
 
 def display_n_grams(tokenize_text, how_many):
     return ngrams(tokenize_text, how_many)
 
 
-print('==========================================================================================================')
 print('=============================================PART 03 =====================================================')
 print('Displays n grams only as many as the desired n.')
-print(*list(display_n_grams(pre_process(file), 2)), sep='\n')
 print('==========================================================================================================')
+print(*list(display_n_grams(pre_process(file), 2)), sep='\n')
 
 
 def most_freq_bi_gram(freq_bi_gram, number_of_bi_gram):
-    bi_gram = FreqDist(display_n_grams(pre_process(file), 2))\
+    bi_gram = FreqDist(display_n_grams(pre_process(file), 2)) \
         .most_common(len(list(display_n_grams(pre_process(file), 2))))
     result = list()
     temp = 0
@@ -72,9 +69,9 @@ def most_freq_bi_gram(freq_bi_gram, number_of_bi_gram):
     return result
 
 
-print('==========================================================================================================')
 print('=============================================PART 04 =====================================================')
 print('Bi grams with the given frequency rate.')
+print('==========================================================================================================')
 print('frequency = 4, n = 1')
 print(most_freq_bi_gram(4, 1))
 
@@ -83,7 +80,6 @@ print(most_freq_bi_gram(2, 3))
 
 print('frequency = 1, n = 5')
 print(most_freq_bi_gram(1, 5))
-print('==========================================================================================================')
 
 
 def probable_occur(bi_gram):
@@ -92,11 +88,10 @@ def probable_occur(bi_gram):
     return sorted(finder.nbest(bi_gram_measures.pmi, 10))  # raw_freq
 
 
-print('==========================================================================================================')
 print('=============================================PART 05 =====================================================')
 print('Top 10 bi grams.')
-print(*probable_occur(display_n_grams(pre_process(file), 2)), sep='\n')  # ask teacher about some wrong examples
 print('==========================================================================================================')
+print(*probable_occur(display_n_grams(pre_process(file), 2)), sep='\n')  # ask teacher about some wrong examples
 
 
 def score_bi_gram(bi_gram):
@@ -107,11 +102,10 @@ def score_bi_gram(bi_gram):
     return scored
 
 
-print('==========================================================================================================')
 print('=============================================PART 06 =====================================================')
 print('Score information of the bi grams that are equal to or more frequent than 2.')
-print(*score_bi_gram(display_n_grams(pre_process(file), 2)), sep='\n')
 print('==========================================================================================================')
+print(*score_bi_gram(display_n_grams(pre_process(file), 2)), sep='\n')
 
 
 def tag_given_text(text):
@@ -119,11 +113,10 @@ def tag_given_text(text):
     return nltk.pos_tag(tokenize)
 
 
-print('==========================================================================================================')
 print('=============================================PART 07 =====================================================')
 print('Produces a list of words.')
-print(tag_given_text(file))
 print('==========================================================================================================')
+print(tag_given_text(file))
 
 
 def num_of_tags(tagged_text):
@@ -136,13 +129,21 @@ def num_of_tags(tagged_text):
     return sorted(stat.items(), key=lambda x: x[1], reverse=True)[:10]
 
 
-print('==========================================================================================================')
 print('=============================================PART 08 =====================================================')
 print('Most common tags.')
-print(num_of_tags(tag_given_text(file)))
 print('==========================================================================================================')
+print(num_of_tags(tag_given_text(file)))
 
-# def getSpecifiedTag(tagged_text,tag):
-#
-#
-# getSpecifiedTag(tag_given_text(file), 'NN')
+
+def get_specified_tag(tagged_text, tag):
+    define_text = list()
+    for k, v in tagged_text:
+        if tag in v:
+            define_text.append(k)
+    return define_text
+
+
+print('=============================================PART 09 =====================================================')
+print('Displays the words in descending order for the specified tag.')
+print('==========================================================================================================')
+print(get_specified_tag(tag_given_text(file), 'NN'))
