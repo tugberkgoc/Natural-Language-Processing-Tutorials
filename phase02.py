@@ -1,3 +1,5 @@
+import re
+from operator import itemgetter
 import nltk
 from nltk.collocations import *
 from nltk import ngrams
@@ -14,7 +16,7 @@ file = open('file.txt', 'r', encoding="utf8").read()
 
 def pre_process(text):
     tokenize = nltk.word_tokenize(text)
-    tokenize = [word.lower() for word in tokenize if word.isalpha()]
+    tokenize = [x.lower() for x in tokenize if x.isalpha()]
 
     stop_words = set(stopwords.words("english"))
     filtered_sentence = list()
@@ -26,10 +28,12 @@ def pre_process(text):
     return filtered_sentence
 
 
+pre_process_file = pre_process(file)
+
 print('=============================================PART 01 =====================================================')
 print('Tokenize version of the text that does not contain neither any stop words nor any punctuations')
 print('==========================================================================================================')
-print(*pre_process(file), sep='\n')
+print(*pre_process_file, sep='\n')
 
 
 def most_frequent(tokenize_text, how_many):
@@ -42,7 +46,7 @@ def most_frequent(tokenize_text, how_many):
 print('=============================================PART 02 =====================================================')
 print('Number of the occurrences of the frequent words')
 print('==========================================================================================================')
-print(most_frequent(pre_process(file), 10))
+print(most_frequent(pre_process_file, 10))
 
 
 def display_n_grams(tokenize_text, how_many):
@@ -52,12 +56,12 @@ def display_n_grams(tokenize_text, how_many):
 print('=============================================PART 03 =====================================================')
 print('Displays n grams only as many as the desired n.')
 print('==========================================================================================================')
-print(*list(display_n_grams(pre_process(file), 2)), sep='\n')
+print(*list(display_n_grams(pre_process_file, 2)), sep='\n')
 
 
 def most_freq_bi_gram(freq_bi_gram, number_of_bi_gram):
-    bi_gram = FreqDist(display_n_grams(pre_process(file), 2)) \
-        .most_common(len(list(display_n_grams(pre_process(file), 2))))
+    bi_gram = FreqDist(display_n_grams(pre_process_file, 2)) \
+        .most_common(len(list(display_n_grams(pre_process_file, 2))))
     result = list()
     temp = 0
 
@@ -91,7 +95,7 @@ def probable_occur(bi_gram):
 print('=============================================PART 05 =====================================================')
 print('Top 10 bi grams.')
 print('==========================================================================================================')
-print(*probable_occur(display_n_grams(pre_process(file), 2)), sep='\n')  # ask teacher about some wrong examples
+print(*probable_occur(display_n_grams(pre_process_file, 2)), sep='\n')  # ask teacher about some wrong examples
 
 
 def score_bi_gram(bi_gram):
@@ -105,7 +109,7 @@ def score_bi_gram(bi_gram):
 print('=============================================PART 06 =====================================================')
 print('Score information of the bi grams that are equal to or more frequent than 2.')
 print('==========================================================================================================')
-print(*score_bi_gram(display_n_grams(pre_process(file), 2)), sep='\n')
+print(*score_bi_gram(display_n_grams(pre_process_file, 2)), sep='\n')
 
 
 def tag_given_text(text):
@@ -147,3 +151,31 @@ print('=============================================PART 09 ====================
 print('Displays the words in descending order for the specified tag.')
 print('==========================================================================================================')
 print(get_specified_tag(tag_given_text(file), 'NN'))
+
+print('=============================================PART 09 =====================================================')
+print('List all the words with number of occurrences information')
+print('==========================================================================================================')
+print(most_frequent(pre_process_file, len(pre_process_file)))
+
+
+def frequency_information(tokenize_text):
+    stem_words = list()
+    for x in tokenize_text:
+        stem_words.append(PorterStemmer().stem(x))
+    return FreqDist(stem_words)
+
+
+print('==========================================================================================================')
+print('Frequency Information')
+print('==========================================================================================================')
+print(frequency_information(pre_process_file))
+
+# frequency = {}
+# words = re.findall(r'(\b[A-Za-z][a-z]{2,9}\b)', file)
+#
+# for word in words:
+#     count = frequency.get(word, 0)
+#     frequency[word] = count + 1
+#
+# for k, v in reversed(sorted(frequency.items(), key=itemgetter(1))):
+#     print(k, v)

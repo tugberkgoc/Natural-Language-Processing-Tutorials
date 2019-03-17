@@ -6,9 +6,6 @@ import pandas as pd
 
 ps = PorterStemmer()
 
-nltk.download('punkt')
-nltk.download('stopwords')
-
 df = pd.read_csv("Reviews.csv")
 saved_column = df['Text']
 
@@ -16,17 +13,17 @@ for text in saved_column:
 
     readTheText = text
 
-    tokenized = nltk.word_tokenize(readTheText)
+    tokenize = nltk.word_tokenize(readTheText)
 
-    tokenized_sentence = nltk.sent_tokenize(readTheText)
+    tokenize_sentence = nltk.sent_tokenize(readTheText)
 
-    distribution = FreqDist(tokenized)
+    distribution = FreqDist(tokenize)
 
     stop_words = set(stopwords.words("english"))
 
     filtered_sentence = list()
 
-    for word in tokenized:
+    for word in tokenize:
         if word not in stop_words:
             filtered_sentence.append(word)
 
@@ -34,7 +31,7 @@ for text in saved_column:
     print("================================================================")
     print("Tokenized Text")
     print("================================================================")
-    print(tokenized)
+    print(tokenize)
 
     print("3)")
     print("================================================================")
@@ -74,6 +71,6 @@ for text in saved_column:
     print("================================================================")
     print("MORE THAN 10 LETTERS")
     print("================================================================")
-    for x in tokenized:
+    for x in tokenize:
         if len(x) >= 10:
             print(x)
