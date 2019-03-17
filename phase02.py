@@ -9,7 +9,7 @@ import pandas as pd
 # df = pd.read_csv("Reviews.csv")
 # saved_column = df['Text']
 
-str = open('file.txt', 'r').read()
+str = open('file.txt', 'r', encoding="utf8").read()
 
 
 def preprocess(text):
@@ -21,7 +21,7 @@ def preprocess(text):
 
   for word in tokenized:
     if word not in stop_words:
-       filtered_sentence.append(word)
+      filtered_sentence.append(word)
 
   return filtered_sentence
 
@@ -32,7 +32,7 @@ print(*preprocess(str), sep='\n')
 def mostFrequent(tokenizeText, howMany):
   stem_words = list()
   for x in tokenizeText:
-        stem_words.append(PorterStemmer().stem(x))
+    stem_words.append(PorterStemmer().stem(x))
   return FreqDist(stem_words).most_common(howMany)
 
 
@@ -49,8 +49,8 @@ print('===MostFreqBiagram===')
 
 
 def mostFreqBigram(freqBiagram, numberOfBiagram):
-  biGram = FreqDist(displayNgrams(preprocess(str), 2)).most_common(
-      len(list(displayNgrams(preprocess(str), 2))))
+  text = displayNgrams(preprocess(str), 2)
+  biGram = FreqDist(text).most_common(len(list(text)))
   result = list()
   temp = 0
 
@@ -89,27 +89,31 @@ def scoreBiagram(bigrams):
   scored = finder.score_ngrams(bigram_measures.pmi)
   return scored
 
+
 print('scooore')
 
 print(*scoreBiagram(displayNgrams(preprocess(str), 2)), sep='\n')
 
 print('POS TAGGERS')
 
+
 def tagger(text):
   tokenized = nltk.word_tokenize(text)
   return nltk.pos_tag(tokenized)
+
 
 print(tagger(str))
 
 print('numofffftags')
 
+
 def numOfTags(taggedText):
   stats = {}
-  for k,v in taggedText:
-      if v in stats:
-        stats[v] += 1
-      else:
-        stats[v] = 1
+  for k, v in taggedText:
+    if v in stats:
+      stats[v] += 1
+    else:
+      stats[v] = 1
   return sorted(stats.items(), key=lambda x: x[1], reverse=True)[:10]
 
 
