@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/tugberkgoc/Natural-Language-Processing-Tutorials#readme",
   "dependencies": {
-    "d3node-linechart": "^0.1.2",
-    "d3node-piechart": "0.0.10",
-    "natural": "^0.6.3",
     "d3-node": "latest",
-    "d3node-output": "latest"
+    "d3node-linechart": "^0.1.2",
+    "d3node-output": "latest",
+    "d3node-piechart": "0.0.10",
+    "fs": "0.0.1-security",
+    "n-gram": "^1.1.0",
+    "natural": "^0.6.3"
   }
 }
