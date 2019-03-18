@@ -6,7 +6,7 @@ import pandas as pd
 
 ps = PorterStemmer()
 
-df = pd.read_csv("Reviews.csv")
+df = pd.read_csv("../Reviews.csv")
 saved_column = df['Text']
 
 for text in saved_column:

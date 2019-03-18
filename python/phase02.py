@@ -1,7 +1,7 @@
 import re
 from operator import itemgetter
 import nltk
-from nltk.collocations import *
+from nltk.collocations import BigramCollocationFinder
 from nltk import ngrams
 from nltk.probability import FreqDist
 from nltk.corpus import stopwords
@@ -11,7 +11,7 @@ import pandas as pd
 # df = pd.read_csv("Reviews.csv")
 # saved_column = df['Text']
 
-file = open('file.txt', 'r', encoding="utf8").read()
+file = open('../file.txt', 'r', encoding="utf8").read()
 
 
 def pre_process(text):
@@ -125,11 +125,11 @@ print(tag_given_text(file))
 
 def num_of_tags(tagged_text):
     stat = {}
-    for k, v in tagged_text:
-        if v in stat:
-            stat[v] += 1
+    for x in tagged_text:
+        if x[1] in stat:
+            stat[x[1]] += 1
         else:
-            stat[v] = 1
+            stat[x[1]] = 1
     return sorted(stat.items(), key=lambda x: x[1], reverse=True)[:10]
 
 
