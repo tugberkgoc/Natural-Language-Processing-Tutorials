@@ -183,15 +183,25 @@ def last_one(text):
         words.append(i[1])
 
     index = []
-    for i in range ( 1 , len(tokenize) + 1):
+    for i in range ( 1 , len(Freq_percent) + 1):
         index.append(i)
 
     temp = []
     for i in index:
         temp.append(i * Freq_percent[i-1]/100)
 
-    dataFrameResult = pd.DataFrame({'Rank' : index[:]} , {'Word' : words[:]} , {'Count' : sorted_freq[:]} ,{'Freq(%)' : Freq_percent[i]}
-                             , {'Freq / Rank' : temp[:]})
+    count = []
+    for i in sorted_freq:
+        count.append(i[0])
+
+    rank_df = pd.DataFrame(data={'Rank': index})
+    words_df = pd.DataFrame(data={'Word': words})
+    counts_df = pd.DataFrame(data={'Counts': count})
+    freq_df = pd.DataFrame(data={'Frequency': Freq_percent})
+    freq_rank_df = pd.DataFrame(data={'Freq X Rank': temp})
+    dataFrameResult = pd.concat([rank_df, words_df, counts_df, freq_df, freq_rank_df], axis=1)
+
+
 
     return dataFrameResult
 
