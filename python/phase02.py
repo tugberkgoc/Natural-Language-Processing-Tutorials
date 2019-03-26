@@ -170,6 +170,39 @@ print('Frequency Information')
 print('==========================================================================================================')
 print(frequency_information(pre_process_file))
 
+
+def last_one(text):
+    tokenize = nltk.word_tokenize(text)
+    tokenize = [word.lower() for word in tokenize if word.isalpha()]
+    sorted_freq = sorted(((value,key) for (key,value) in FreqDist(tokenize).items()) , reverse=True)
+
+    Freq_percent = []
+    words = []
+    for i in sorted_freq:
+        Freq_percent.append(i[0] * 100 / len(tokenize))
+        words.append(i[1])
+
+    index = []
+    for i in range ( 1 , len(tokenize) + 1):
+        index.append(i)
+
+    temp = []
+    for i in index:
+        temp.append(i * Freq_percent[i-1]/100)
+
+    dataFrameResult = pd.DataFrame({'Rank' : index[:]} , {'Word' : words[:]} , {'Count' : sorted_freq[:]} ,{'Freq(%)' : Freq_percent[i]}
+                             , {'Freq / Rank' : temp[:]})
+
+    return dataFrameResult
+
+print('==========================================================================================================')
+print('=============================================PART 10 =====================================================')
+print('last one')
+print(last_one(file))
+#print(num_of_tags(tag_given_text(file)))
+print('==========================================================================================================')
+
+
 # frequency = {}
 # words = re.findall(r'(\b[A-Za-z][a-z]{2,9}\b)', file)
 #
