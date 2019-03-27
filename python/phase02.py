@@ -130,7 +130,7 @@ def num_of_tags(tagged_text):
             stat[x[1]] += 1
         else:
             stat[x[1]] = 1
-    return sorted(stat.items(), key=lambda x: x[1], reverse=True)[:10]
+    return sorted(stat.items(), key=lambda y: y[1], reverse=True)[:10]
 
 
 print('=============================================PART 08 =====================================================')
