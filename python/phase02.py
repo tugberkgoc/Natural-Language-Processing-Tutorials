@@ -174,21 +174,21 @@ print(frequency_information(pre_process_file))
 def last_one(text):
     tokenize = nltk.word_tokenize(text)
     tokenize = [word.lower() for word in tokenize if word.isalpha()]
-    sorted_freq = sorted(((value,key) for (key,value) in FreqDist(tokenize).items()) , reverse=True)
+    sorted_freq = sorted(((value, key) for (key, value) in FreqDist(tokenize).items()), reverse=True)
 
-    Freq_percent = []
+    freq_percent = []
     words = []
     for i in sorted_freq:
-        Freq_percent.append(i[0] * 100 / len(tokenize))
+        freq_percent.append(i[0] * 100 / len(tokenize))
         words.append(i[1])
 
     index = []
-    for i in range ( 1 , len(Freq_percent) + 1):
+    for i in range(1, len(freq_percent) + 1):
         index.append(i)
 
     temp = []
     for i in index:
-        temp.append(i * Freq_percent[i-1]/100)
+        temp.append(i * freq_percent[i - 1] / 100)
 
     count = []
     for i in sorted_freq:
@@ -197,21 +197,19 @@ def last_one(text):
     rank_df = pd.DataFrame(data={'Rank': index})
     words_df = pd.DataFrame(data={'Word': words})
     counts_df = pd.DataFrame(data={'Counts': count})
-    freq_df = pd.DataFrame(data={'Frequency': Freq_percent})
+    freq_df = pd.DataFrame(data={'Frequency': freq_percent})
     freq_rank_df = pd.DataFrame(data={'Freq X Rank': temp})
     dataFrameResult = pd.concat([rank_df, words_df, counts_df, freq_df, freq_rank_df], axis=1)
 
-
-
     return dataFrameResult
+
 
 print('==========================================================================================================')
 print('=============================================PART 10 =====================================================')
 print('last one')
 print(last_one(file))
-#print(num_of_tags(tag_given_text(file)))
+# print(num_of_tags(tag_given_text(file)))
 print('==========================================================================================================')
-
 
 # frequency = {}
 # words = re.findall(r'(\b[A-Za-z][a-z]{2,9}\b)', file)
