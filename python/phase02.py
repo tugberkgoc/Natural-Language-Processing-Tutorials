@@ -199,9 +199,9 @@ def last_one(text):
     counts_df = pd.DataFrame(data={'Counts': count})
     freq_df = pd.DataFrame(data={'Frequency': freq_percent})
     freq_rank_df = pd.DataFrame(data={'Freq X Rank': temp})
-    dataFrameResult = pd.concat([rank_df, words_df, counts_df, freq_df, freq_rank_df], axis=1)
+    data_frame_result = pd.concat([rank_df, words_df, counts_df, freq_df, freq_rank_df], axis=1)
 
-    return dataFrameResult
+    return data_frame_result
 
 
 print('==========================================================================================================')
