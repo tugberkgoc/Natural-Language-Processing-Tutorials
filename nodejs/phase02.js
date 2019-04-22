@@ -94,8 +94,19 @@ mostFreqBiGram(2,3).forEach(x => console.log(x))
 console.log('frequency = 1, n = 5')
 mostFreqBiGram(1,5).forEach(x => console.log(x))
 
-// tagGivenText = (text) => {
+tagGivenText = (text) => {
+  const language = 'EN'
+  const defaultCategory = 'N'
+  const defaultCategoryCapitalized = 'NNP'
 
-// }
+  const lexicon = new natural.Lexicon(language, defaultCategory, defaultCategoryCapitalized)
+  const ruleSet = new natural.RuleSet('EN')
+  const tagger = new natural.BrillPOSTagger(lexicon, ruleSet)
 
-// console.log(tagGivenText(file))
+  return tagger.tag([...new natural.WordTokenizer().tokenize(text.toLowerCase())])
+}
+
+console.log('=============================================PART 07 =====================================================')
+console.log('Produces a list of words.')
+console.log('==========================================================================================================')
+console.log(tagGivenText(text))
