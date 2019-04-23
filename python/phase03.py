@@ -1,13 +1,14 @@
 import nltk
 from nltk.corpus import brown
 
-print('=============================================PART 01 =====================================================')
+print('============================================= PART 01 =====================================================')
 print('Constructs a lexicon that maps words of the English language to lexical categories. (1000 items)')
 print('==========================================================================================================')
 
-def constructLexicon():
+
+def construct_lexicon(words, how_many):
     temp = {}
-    for word, pos in sorted(key for key in brown.tagged_words()[:1000]):
+    for word, pos in sorted(key for key in words[:how_many]):
         if word not in temp:
             temp[word] = pos
 
@@ -15,27 +16,26 @@ def constructLexicon():
         print(f'{x:<20} {temp[x]}')
 
 
-constructLexicon()
+construct_lexicon(brown.tagged_words(), 1000)
 
-print('=============================================PART 02 =====================================================')
-print('Constructs a grammar that denes the structure of a sentence.')
-print('==========================================================================================================')
-grammar = nltk.CFG.fromstring("""
-S -> NP VP
-PP -> P NP
-NP -> Det N | Det N PP | 'I'
-VP -> V NP | VP PP
-Det -> 'an' | 'my'
-N -> 'elephant' | 'pajamas'
-V -> 'shot'
-P -> 'in'
-""")
-def genarateGrammer(sent):
-    parser = nltk.ChartParser(grammar, trace = 1)
+print('============================================= PART 02 =====================================================')
+print('Constructs a grammar that defines the structure of a sentence.')
+
+
+def generate_grammar(sent, gra):
+    parser = nltk.ChartParser(gra, trace=1)
     for tree in parser.parse(sent):
         print(tree)
 
 
-
-example_sentence = ['I', 'shot', 'an', 'elephant', 'in', 'my', 'pajamas']
-genarateGrammer(example_sentence)
+grammar = nltk.CFG.fromstring("""
+S -> NP VP
+PP -> P NP
+NP -> 'I' | N V Det N
+VP -> V NP | VP PP
+Det -> 'a' | 'in' | Det Det
+N -> 'Susie' | 'shoe' | 'shine' | 'shop' | N N | N PP
+V -> 'saw' | 'sitting'
+P -> 'in'
+""")
+generate_grammar("I saw Susie sitting in a shoe shine shop".split(' '), grammar)
