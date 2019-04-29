@@ -17,7 +17,7 @@ def pre_process(text):
         if word not in stop_words:
             filtered_sentence.append(word)
 
-    return filtered_sentence
+    return set(filtered_sentence)
 
 
 def extract_words(sentence):
@@ -43,16 +43,16 @@ def bag_of_words(sentence, words):
 df = pd.read_csv("../Reviews.csv")
 saved_column = df['Text']
 
-all_words = list()
+all_words = set()
 
 for file in saved_column[0:2]:
     pre_process_file = pre_process(file)
 
-    print('=============================================PART 01 =====================================================')
-    print('Tokenize version of the text that does not contain neither any stop words nor any punctuations')
-    print('==========================================================================================================')
     # print(*pre_process_file, sep='\n')
-    all_words.extend(pre_process_file)
+    all_words.update(pre_process_file)
 
-print(set(all_words))
-print(bag_of_words("Products is likely food.", set(all_words)))
+print('=============================================PART 01 =====================================================')
+print('A list of vectors of features. (Bag Of Words)')
+print('==========================================================================================================')
+# print(set(all_words))
+print(bag_of_words("Products is likely food.", all_words))
